@@ -7,6 +7,8 @@ const MAIN = "https://api.soundcloud.com/users/";
 var artist;
 var artistId;
 var data;
+var songs = document.querySelector(".results")
+var trackData;
 // 2. Create your `onSubmit` event for getting the user's search term
 document.getElementById("submit").addEventListener("click",getArtist);
 
@@ -29,13 +31,42 @@ function getArtist(){
 }
 function getTracks(data){
    artistId = data.id;
-   axios.get("https://api.soundcloud.com/"+"tracks/"+artistId+API_KEY).then(function(response){
+   console.log(artistId);
+   axios.get(MAIN + artistId +"/tracks"+API_KEY).then(function(response){
    trackData = response.data;
-   console.log("data: ", trackData);
-     return data;
+   console.log("data: ", response.data);
+     album()
+     return
    });
+
+
    
 }
+
+function album(){
+  console.log("final", trackData)
+  for (i=0; i <=10;i++){
+  let track = document.createElement("div");
+  songs.appendChild(track)
+
+  let albumCover= document.createElement("img");
+  albumCover.classList.add("cover");
+  albumCover.src = trackData[i].artwork_url;
+  songs.appendChild(albumCover);
+  
+  // let songTitle=document.createElement("p");
+  // songTitle.textContent = trackData[i]
+  // songTitle.classList.add("title");
+
+  // songs.appendChild(songTitle)
+
+  // let bandName=document.createElement("p");
+  // songs.classList.add("band");
+  // songs.appendChild(bandName)
+  }
+}
+  
+
 
 // 4. Create a way to append the fetch results to your page
 
