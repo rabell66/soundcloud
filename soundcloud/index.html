@@ -13,9 +13,9 @@
       <audio class="music-player" controls="controls" src=""></audio>
     </section>
     <section class="search" >
-        <form onsubmit="searchData()">
-              <input type="text" placeholder="Search for Artist">
-              <input type="submit">
+        <form >
+              <input type="text" placeholder="Search for Artist" id = "artist">
+              <input type="button" value="submit" id = "submit">
           </form>
       <form class="search-form">
         
@@ -24,6 +24,8 @@
     <section class="results"></section>
     <h3>Search Results</h3>
   </div>
+  
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
