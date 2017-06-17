@@ -1,22 +1,21 @@
 body {
   background-color: #60d9f1;
-
+}
+.container {
+  text-align: center;
+  background-color: #f160d2;
+  margin: 9vw 19vw;
 }
 
-
-.results{
-  display:flex;
-
-  
+.options {
+  display: flex;
+  overflow: scroll;
+  width: 54.5vw;
+  padding: 0 25px;
 }
-.results div{
-  /*background-color:black;*/
-      height: 20vw;
-      width: 100%;
-      margin:1px;
-
+.options div {
+  margin: 0 .5vw 0 0;
 }
-.cover{flex: 1 1 25%
- 
+.cover {
+  flex: 1 1 25%;
 }
- 

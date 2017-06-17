@@ -7,12 +7,13 @@ const MAIN = "https://api.soundcloud.com/users/";
 var artist;
 var artistId;
 var data;
-var songs = document.querySelector(".results")
+var songs = document.querySelector(".options");
 var trackData;
+var audio;
+var songArray=[]
+var trackNumber;
 // 2. Create your `onSubmit` event for getting the user's search term
-document.getElementById("submit").addEventListener("click",getArtist);
-
-
+document.getElementById("submit").addEventListener("click", getArtist);
 
 // 3. Create your `fetch` request that is called after a submission
 function getUser() {
@@ -24,49 +25,63 @@ function getUser() {
   });
 }
 
-function getArtist(){
+function getArtist() {
   artist = document.getElementById("artist").value;
   getUser();
-  return
+  return;
 }
-function getTracks(data){
-   artistId = data.id;
-   console.log(artistId);
-   axios.get(MAIN + artistId +"/tracks"+API_KEY).then(function(response){
-   trackData = response.data;
-   console.log("data: ", response.data);
-     album()
-     return
-   });
-
-
-   
+function getTracks(data) {
+  artistId = data.id;
+  console.log(artistId);
+  axios.get(MAIN + artistId + "/tracks" + API_KEY).then(function(response) {
+    trackData = response.data;
+    console.log("data: ", response.data);
+    album();
+    return;
+  });
 }
 
-function album(){
-  console.log("final", trackData)
-  for (i=0; i <=10;i++){
-  let track = document.createElement("div");
-  songs.appendChild(track)
-
-  let albumCover= document.createElement("img");
-  albumCover.classList.add("cover");
-  albumCover.src = trackData[i].artwork_url;
-  songs.appendChild(albumCover);
-  
-  // let songTitle=document.createElement("p");
-  // songTitle.textContent = trackData[i]
-  // songTitle.classList.add("title");
-
-  // songs.appendChild(songTitle)
-
-  // let bandName=document.createElement("p");
-  // songs.classList.add("band");
-  // songs.appendChild(bandName)
+function album() {
+  for (i = 0; i <= 10; i++) {
+    let trackCount = i;
+    let track = document.createElement("div");
+    let albumCover = document.createElement("img");
+    let songTitle = document.createElement("p");
+    let bandName = document.createElement("p");
+    
+    track.classList.add(trackCount);
+    albumCover.classList.add("cover");
+    albumCover.src = trackData[i].artwork_url;
+    songTitle.textContent = trackData[i].title;
+    songTitle.classList.add("Title");
+    bandName.textContent = trackData[i].user.username;
+    bandName.classList.add("band");
+    
+    songs.appendChild(track);
+    track.addEventListener("click", audioFile)
+    
+    
+    track.appendChild(albumCover);
+    track.appendChild(songTitle);
+    track.appendChild(bandName);
+    songArray.push(trackData[i].stream_url);
+    
+}
   }
-}
-  
+ 
 
+ function audioFile(){
+        
+        console.log()
+        let  music = songArray[trackCount]
+        console.log(music)
+        document.querySelector(".music-player").src = music + API_KEY;
+        audio.pause();
+        audio.load();
+        audio.play();
+    return;
+
+  }
 
 // 4. Create a way to append the fetch results to your page
 
