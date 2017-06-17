@@ -3,7 +3,8 @@ body {
 }
 .container {
   text-align: center;
-  background-color: #f160d2;
+  background-color: black;
+  color: silver;
   margin: 9vw 19vw;
 }
 
@@ -18,4 +19,16 @@ body {
 }
 .cover {
   flex: 1 1 25%;
+}
+.options img{
+  border-top:solid silver 2px;
+  border-right:solid silver 3px;
+  border-bottom:solid silver 5px;
+  border-left:solid silver 1px;
+  
+  
+}
+.options img:active{border-right:solid silver 1px;
+border-bottom:solid silver 1px;
+
 }

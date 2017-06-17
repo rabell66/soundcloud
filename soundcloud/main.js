@@ -11,7 +11,7 @@ var songs = document.querySelector(".options");
 var trackData;
 var audio;
 var songArray=[]
-var trackNumber;
+var musicPlayer = document.querySelector("audio");
 // 2. Create your `onSubmit` event for getting the user's search term
 document.getElementById("submit").addEventListener("click", getArtist);
 
@@ -42,14 +42,13 @@ function getTracks(data) {
 }
 
 function album() {
-  for (i = 0; i <= 10; i++) {
-    let trackCount = i;
+  for (i = 0; i <= 30; i++) {
+    let trackSong = trackData[i]
     let track = document.createElement("div");
     let albumCover = document.createElement("img");
     let songTitle = document.createElement("p");
     let bandName = document.createElement("p");
     
-    track.classList.add(trackCount);
     albumCover.classList.add("cover");
     albumCover.src = trackData[i].artwork_url;
     songTitle.textContent = trackData[i].title;
@@ -58,8 +57,10 @@ function album() {
     bandName.classList.add("band");
     
     songs.appendChild(track);
-    track.addEventListener("click", audioFile)
-    
+    track.addEventListener("click", function(e){
+     musicPlayer.src = trackSong.stream_url + API_KEY
+   });
+   
     
     track.appendChild(albumCover);
     track.appendChild(songTitle);
@@ -69,19 +70,6 @@ function album() {
 }
   }
  
-
- function audioFile(){
-        
-        console.log()
-        let  music = songArray[trackCount]
-        console.log(music)
-        document.querySelector(".music-player").src = music + API_KEY;
-        audio.pause();
-        audio.load();
-        audio.play();
-    return;
-
-  }
 
 // 4. Create a way to append the fetch results to your page
 
