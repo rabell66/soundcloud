@@ -12,10 +12,15 @@ var trackData;
 var audio;
 var songArray=[]
 var musicPlayer = document.querySelector("audio");
+var searchByKeystroke = document.querySelector("#artist")
+
 // 2. Create your `onSubmit` event for getting the user's search term
 document.getElementById("submit").addEventListener("click", getArtist);
-
+searchByKeystroke.addEventListener("keypress", getArtist);
 // 3. Create your `fetch` request that is called after a submission
+
+
+
 function getUser() {
   axios.get(MAIN + artist + API_KEY).then(function(response) {
     data = response.data;
@@ -42,6 +47,10 @@ function getTracks(data) {
 }
 
 function album() {
+
+   while (songs.firstChild){
+     songs.removeChild(songs.firstChild);
+   }
   for (i = 0; i <= 30; i++) {
     let trackSong = trackData[i]
     let track = document.createElement("div");
@@ -59,12 +68,13 @@ function album() {
     songs.appendChild(track);
     track.addEventListener("click", function(e){
      musicPlayer.src = trackSong.stream_url + API_KEY
+    
    });
    
     
     track.appendChild(albumCover);
-    track.appendChild(songTitle);
     track.appendChild(bandName);
+    track.appendChild(songTitle);
     songArray.push(trackData[i].stream_url);
     
 }
