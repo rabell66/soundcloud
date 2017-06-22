@@ -16,7 +16,7 @@ var searchByKeystroke = document.querySelector("#artist")
 
 // 2. Create your `onSubmit` event for getting the user's search term
 document.getElementById("submit").addEventListener("click", getArtist);
-searchByKeystroke.addEventListener("keypress", getArtist);
+searchByKeystroke.addEventListener("keyup", getArtist);
 // 3. Create your `fetch` request that is called after a submission
 
 
@@ -50,6 +50,7 @@ function album() {
 
    while (songs.firstChild){
      songs.removeChild(songs.firstChild);
+     document.querySelector("#nowPlaying").innerHTML =""
    }
   for (i = 0; i <= 30; i++) {
     let trackSong = trackData[i]
@@ -59,7 +60,8 @@ function album() {
     let bandName = document.createElement("p");
     
     albumCover.classList.add("cover");
-    albumCover.src = trackData[i].artwork_url;
+    if (trackData[i].artwork_url == null){ albumCover.src = "images/speaker.png"}
+        else{ albumCover.src = trackData[i].artwork_url}; 
     songTitle.textContent = trackData[i].title;
     songTitle.classList.add("Title");
     bandName.textContent = trackData[i].user.username;
@@ -67,18 +69,15 @@ function album() {
     
     songs.appendChild(track);
     track.addEventListener("click", function(e){
-     musicPlayer.src = trackSong.stream_url + API_KEY
-    
-   });
-   
-    
+     musicPlayer.src = trackSong.stream_url + API_KEY;
+     document.querySelector("#nowPlaying").innerHTML = trackSong.title;
+     })
     track.appendChild(albumCover);
     track.appendChild(bandName);
     track.appendChild(songTitle);
     songArray.push(trackData[i].stream_url);
-    
-}
   }
+}
  
 
 // 4. Create a way to append the fetch results to your page
